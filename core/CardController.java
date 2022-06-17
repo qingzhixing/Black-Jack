@@ -6,6 +6,9 @@ public class CardController {
     public static ArrayList<Card> GenerateCardSet() {
         ArrayList<Card> cards = new ArrayList<>();
         for (Card.CardPoints point : Card.CardPoints.values()) {
+            if (point == Card.CardPoints.CardWhite) {
+                continue;
+            }
             cards.add(new Card(point));
         }
         return cards;
@@ -23,25 +26,35 @@ public class CardController {
 
     public CardController() {
         setDeckAmount(1);
+        this.enableWhiteCard = false;
     }
 
-    public CardController(int deckAmount) throws IllegalArgumentException {
+    public CardController(int deckAmount,boolean enableWhiteCard) throws IllegalArgumentException {
         try{
             setDeckAmount(deckAmount);
+            this.enableWhiteCard = enableWhiteCard;
         } catch (IllegalArgumentException e) {
             throw e;
         }
     }
 
     public void InitializeCards() {
-        for(int i=1; i<=deckAmount; i++) {
+        for (int i = 1; i <= deckAmount; i++) {
             cards.addAll(GenerateCardSet());
         }
-        cards=ShuffleCards(cards);
+        if (enableWhiteCard) {
+            cards.add(new Card(Card.CardPoints.CardWhite));
+        }
+        cards = ShuffleCards(cards);
     }
     
-    private int deckAmount;
-    private ArrayList<Card> cards;
+    public Card DrawCard() {
+        if (cards.size() > 0) {
+            return cards.remove(0);
+        } else {
+            return null;
+        }
+    }
 
     public int getDeckAmount() {
         return deckAmount;
@@ -53,4 +66,17 @@ public class CardController {
         }
         this.deckAmount = amount;
     }
+
+    public boolean isEnableWhiteCard() {
+        return enableWhiteCard;
+    }
+
+    public void setEnableWhiteCard(boolean enableWhiteCard) {
+        this.enableWhiteCard = enableWhiteCard;
+    }
+
+    private int deckAmount;
+    private ArrayList<Card> cards;
+    private boolean enableWhiteCard;
+
 }

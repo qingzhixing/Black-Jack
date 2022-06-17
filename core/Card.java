@@ -14,7 +14,8 @@ public class Card {
         Card10(10, "10"),
         CardJ(10, "J"),
         CardQ(10, "Q"),
-        CardK(10, "K");
+        CardK(10, "K"),
+        CardWhite(0, "White");
 
         public final int intValue;
         public final String stringValue;
