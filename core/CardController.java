@@ -26,13 +26,17 @@ public class CardController {
 
     public CardController() {
         setDeckAmount(1);
-        this.enableWhiteCard = false;
+        enableWhiteCard = false;
+        cards = new ArrayList<>();
+        InitializeCards();
     }
 
     public CardController(int deckAmount,boolean enableWhiteCard) throws IllegalArgumentException {
         try{
             setDeckAmount(deckAmount);
             this.enableWhiteCard = enableWhiteCard;
+            cards = new ArrayList<>();
+            InitializeCards();
         } catch (IllegalArgumentException e) {
             throw e;
         }
