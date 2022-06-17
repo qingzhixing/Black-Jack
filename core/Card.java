@@ -2,7 +2,6 @@ package core;
 
 public class Card {
     public static enum CardPoints {
-        CardA(1, "A"),
         Card2(2, "2"),
         Card3(3, "3"),
         Card4(4, "4"),
@@ -15,6 +14,7 @@ public class Card {
         CardJ(10, "J"),
         CardQ(10, "Q"),
         CardK(10, "K"),
+        CardA(11, "A"),
         CardWhite(0, "White");
 
         public final int intValue;

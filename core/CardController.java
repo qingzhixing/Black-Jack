@@ -25,7 +25,7 @@ public class CardController {
     }
 
     public CardController() {
-        setDeckAmount(1);
+        SetDeckAmount(1);
         enableWhiteCard = false;
         cards = new ArrayList<>();
         InitializeCards();
@@ -33,7 +33,7 @@ public class CardController {
 
     public CardController(int deckAmount,boolean enableWhiteCard) throws IllegalArgumentException {
         try{
-            setDeckAmount(deckAmount);
+            SetDeckAmount(deckAmount);
             this.enableWhiteCard = enableWhiteCard;
             cards = new ArrayList<>();
             InitializeCards();
@@ -60,22 +60,22 @@ public class CardController {
         }
     }
 
-    public int getDeckAmount() {
+    public int GetDeckAmount() {
         return deckAmount;
     }
 
-    public void setDeckAmount(int amount) throws IllegalArgumentException {
+    public void SetDeckAmount(int amount) throws IllegalArgumentException {
         if (amount < 1 || amount > 8) {
             throw new IllegalArgumentException("Deck amount must be greater than 0 and less than 9.");
         }
         this.deckAmount = amount;
     }
 
-    public boolean isEnableWhiteCard() {
+    public boolean IsEnableWhiteCard() {
         return enableWhiteCard;
     }
 
-    public void setEnableWhiteCard(boolean enableWhiteCard) {
+    public void SetEnableWhiteCard(boolean enableWhiteCard) {
         this.enableWhiteCard = enableWhiteCard;
     }
 
