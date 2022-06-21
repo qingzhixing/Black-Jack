@@ -101,6 +101,8 @@ public class GameController {
             System.out.printf("The probability of a player winning is %.2f%%\n",
                     (double) playerWinCounter / (playerWinCounter + dealerWinCounter) * 100);
         }
+
+        scanner.close();
     }
 
     public void DisplayResult(Player player, Player dealer) {
