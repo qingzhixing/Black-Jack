@@ -2,8 +2,8 @@ package core;
 
 public class HumanPlayer extends Player{
     @Override
-    public int MakeDecision(Card dealerVisibleCard) {
+    public DecisionType MakeDecision(Card dealerVisibleCard) {
         // TODO Auto-generated method stub
-        return 0;
+        return DecisionType.HIT;
     }
 }

@@ -42,7 +42,7 @@ public abstract class Player {
         return possiblePointSum;
     }
 
-    public abstract int MakeDecision(Card dealerVisibleCard);
+    public abstract DecisionType MakeDecision(Card dealerVisibleCard);
 
     public String GetCardsString() {
         if (cards.size() == 0) {

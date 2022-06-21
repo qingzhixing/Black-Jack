@@ -1,11 +1,11 @@
 package core;
 
 public class PlayerFactory {
-    public static enum GameMode {
+    public static enum PlayerType {
         HUMAN, AI, CHEAT_AI;
     }
 
-    public static Player NewPlayer(GameMode mode) {
+    public static Player CreatePlayer(PlayerType mode) {
         switch (mode) {
             case HUMAN:
                 return new HumanPlayer();

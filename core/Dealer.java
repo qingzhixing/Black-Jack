@@ -3,9 +3,9 @@ package core;
 public class Dealer extends Player{
 
     @Override
-    public int MakeDecision(Card dealerVisibleCard) {
+    public DecisionType MakeDecision(Card dealerVisibleCard) {
         // TODO Auto-generated method stub
-        return 0;
+        return DecisionType.HIT;
     }
     
     public String GetCardsStringHideFirst() {
@@ -24,5 +24,12 @@ public class Dealer extends Player{
             }
         }
         return "[ " + sb.toString() + " ]";
+    }
+
+    public Card GetVisibleCard() {
+        if (cards.size() < 2) {
+            return null;
+        }
+        return cards.get(1);
     }
 }
