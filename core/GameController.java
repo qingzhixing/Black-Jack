@@ -1,6 +1,13 @@
 package core;
 
+import java.util.ArrayList;
+
 public class GameController {
+    public static enum GameState {
+        GameGoing,
+        GameOver,
+    }
+    
     GameController() {
         player = new HumanPlayer();
         dealer = new Dealer();
@@ -15,20 +22,30 @@ public class GameController {
         playerWinCounter = dealerWinCounter = 0;
     }
 
-    public void ShowCardsOnGame(){
-        //TODO:complete
-    }
-
-    public void ShowCardsOutOfGame() {
-        //TODO:complete
+    public void ShowCards() {
+        System.out.println("Player: " + player.GetCardsString());
+        switch (gameState) {
+            case GameGoing:
+                System.out.println("Dealer: "
+                        + dealer.GetCardsStringHideFirst());
+                break;
+            case GameOver:
+                System.out.println("Dealer: "
+                        + dealer.GetCardsString());
+                break;
+        }
     }
     
     public void InitializeGame() {
-        //TODO:complete
+        gameState = GameState.GameGoing;
+        cardController.InitializeCards();
     }
     
     public void StartGame() {
-        //TODO:complete
+        int loops;
+        if (player instanceof AIPlayer) {
+            
+        }
     }
 
     public void DisplayResult(Player player, Player dealer) {
@@ -36,8 +53,9 @@ public class GameController {
     }
     
     private Player player;
-    private Player dealer;
+    private Dealer dealer;
     private CardController cardController;
     private int playerWinCounter;
     private int dealerWinCounter;
+    private GameState gameState;
 }
