@@ -1,33 +1,12 @@
 package core;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class CardController {
-    public static ArrayList<Card> GenerateCardSet() {
-        ArrayList<Card> cards = new ArrayList<>();
-        for (Card.CardPoints point : Card.CardPoints.values()) {
-            if (point == Card.CardPoints.CardWhite) {
-                continue;
-            }
-            cards.add(new Card(point));
-        }
-        return cards;
-    }
-
-    public static ArrayList<Card> ShuffleCards(ArrayList<Card> cards) {
-        ArrayList<Card> shuffledCards = new ArrayList<>();
-        while (cards.size() > 0) {
-            int randomIndex = (int) (Math.random() * cards.size());
-            shuffledCards.add(cards.get(randomIndex));
-            cards.remove(randomIndex);
-        }
-        return shuffledCards;
-    }
-
     public CardController() {
         SetDeckAmount(1);
         enableWhiteCard = false;
-        cards = new ArrayList<>();
+        cards = new LinkedList<>();
         InitializeCards();
     }
 
@@ -35,7 +14,7 @@ public class CardController {
         try{
             SetDeckAmount(deckAmount);
             this.enableWhiteCard = enableWhiteCard;
-            cards = new ArrayList<>();
+            cards = new LinkedList<>();
             InitializeCards();
         } catch (IllegalArgumentException e) {
             throw e;
@@ -43,21 +22,29 @@ public class CardController {
     }
 
     public void InitializeCards() {
-        for (int i = 1; i <= deckAmount; i++) {
-            cards.addAll(GenerateCardSet());
+        cards.clear();
+        for (int deck = 1; deck <= deckAmount; deck++) {
+            for (int suit = 1; suit <= 4; suit++) {
+                for (Card.CardPoints point : Card.CardPoints.values()) {
+                    if (point == Card.CardPoints.CardWhite) {
+                        continue;
+                    }
+                    cards.add(new Card(point));
+                }
+            }
         }
         if (enableWhiteCard) {
             cards.add(new Card(Card.CardPoints.CardWhite));
         }
-        cards = ShuffleCards(cards);
     }
     
-    public Card DrawCard() {
-        if (cards.size() > 0) {
-            return cards.remove(0);
-        } else {
-            return null;
+    public Card SendCard() {
+        if (cards.size() < 10) {
+            //reinitialize cards
+            InitializeCards();
         }
+        int randomIndex = (int) (Math.random()) % cards.size();
+        return cards.remove(randomIndex);
     }
 
     public int GetDeckAmount() {
@@ -80,7 +67,7 @@ public class CardController {
     }
 
     private int deckAmount;
-    private ArrayList<Card> cards;
+    private LinkedList<Card> cards;
     private boolean enableWhiteCard;
 
 }

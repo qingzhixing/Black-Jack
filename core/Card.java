@@ -42,7 +42,7 @@ public class Card {
 
     private CardPoints point;
 
-    public CardPoints getPoint() {
+    public CardPoints GetPoint() {
         return point;
     }
 }

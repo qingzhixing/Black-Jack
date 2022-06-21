@@ -3,33 +3,46 @@ package core;
 import java.util.ArrayList;
 
 public abstract class Player {
-    // public static final enum 
+    public static enum DecisionType {
+        HIT,
+        STAND,
+    };
 
     public Player() {
         cards = new ArrayList<>();
     }
     
-    public void DrawInCard(Card card) {
+    public final void AddCard(Card card) {
         cards.add(card);
     }
 
-    public boolean IsBlackJack() {
-        if (cards.size() != 2) {
-            return false;
-        }
-        return (cards.get(0).getPoint() == Card.CardPoints.CardA) &&
-        (cards.get(1).getPoint().intValue == 10);
+    public final ArrayList<Card> GetCards() {
+        return cards;
     }
 
-    public boolean CheckBust() {
-        int pointCounter = 0;
+    public final ArrayList<Integer> CalculatePossiblePointSum() {
+        ArrayList<Integer> possiblePointSum = new ArrayList<>();
+        
+        int cardACounter = 0;
+        int pointSum = 0;
         for (Card card : cards) {
-            pointCounter += card.getPoint().intValue;
+            pointSum += card.GetPoint().intValue;
+            if (card.GetPoint() == Card.CardPoints.CardA) {
+                cardACounter++;
+            }
         }
-        return pointCounter > 21;
+        while (cardACounter > 0) {
+            int processedSum = pointSum - cardACounter * 10;
+            if (processedSum <= 21 && processedSum >= 0) {
+                possiblePointSum.add(processedSum);
+            }
+            cardACounter--;
+        }
+
+        return possiblePointSum;
     }
 
-    public abstract int Decision();
+    public abstract int MakeDecision();
 
-    public ArrayList<Card> cards;
+    private ArrayList<Card> cards;
 }
