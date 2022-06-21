@@ -1,6 +1,20 @@
 package core;
 
 public class GameController {
+    GameController() {
+        player = new HumanPlayer();
+        dealer = new Dealer();
+        cardController = new CardController();
+        playerWinCounter = dealerWinCounter = 0;
+    }
+
+    GameController(int deckAmount, boolean enableWhiteCard, Player playerAI) {
+        player = playerAI;
+        dealer = new Dealer();
+        cardController = new CardController(deckAmount, enableWhiteCard);
+        playerWinCounter = dealerWinCounter = 0;
+    }
+
     public void ShowCardsOnGame(){
         //TODO:complete
     }

@@ -1,6 +1,6 @@
 package core;
 
-public class PlayerAI extends Player{
+public class AIPlayer extends Player{
 
     @Override
     public int MakeDecision(Card dealerVisibleCard) {

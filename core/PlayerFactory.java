@@ -8,11 +8,11 @@ public class PlayerFactory {
     public static Player NewPlayer(GameMode mode) {
         switch (mode) {
             case HUMAN:
-                return new PlayerHuman();
+                return new HumanPlayer();
             case AI:
-                return new PlayerAI();
+                return new AIPlayer();
             case CHEAT_AI:
-                return new PlayerCheatAI();
+                return new CheatAIPlayer();
             default:
                 return null;
         }
