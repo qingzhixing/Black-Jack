@@ -42,7 +42,7 @@ public abstract class Player {
         return possiblePointSum;
     }
 
-    public abstract int MakeDecision();
+    public abstract int MakeDecision(Card dealerVisibleCard);
 
     private ArrayList<Card> cards;
 }
