@@ -2,10 +2,11 @@ package core;
 
 import java.util.ArrayList;
 
-public class Player {
+public abstract class Player {
+    // public static final enum 
+
     public Player() {
         cards = new ArrayList<>();
-        isBlackJack=false;
     }
     
     public void DrawInCard(Card card) {
@@ -13,11 +14,11 @@ public class Player {
     }
 
     public boolean IsBlackJack() {
-        return isBlackJack;
-    }
-
-    public void SetBlackJack(boolean isBlackJack) {
-        this.isBlackJack = isBlackJack;
+        if (cards.size() != 2) {
+            return false;
+        }
+        return (cards.get(0).getPoint() == Card.CardPoints.CardA) &&
+        (cards.get(1).getPoint().intValue == 10);
     }
 
     public boolean CheckBust() {
@@ -28,6 +29,7 @@ public class Player {
         return pointCounter > 21;
     }
 
-    private boolean isBlackJack;
-    private ArrayList<Card> cards;
+    public abstract int Decision();
+
+    public ArrayList<Card> cards;
 }
