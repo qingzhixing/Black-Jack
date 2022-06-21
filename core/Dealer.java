@@ -4,7 +4,16 @@ public class Dealer extends Player{
 
     @Override
     public DecisionType MakeDecision(Card dealerVisibleCard) {
-        // TODO Auto-generated method stub
+        if (this.CheckBust()) {
+            return DecisionType.STAND;
+        }
+        int maxSum=0;
+        for (int sum : this.CalculatePossiblePointSum()) {
+            sum = Math.max(sum, maxSum);
+        }
+        if (maxSum >= 17) {
+            return DecisionType.STAND;
+        }
         return DecisionType.HIT;
     }
     

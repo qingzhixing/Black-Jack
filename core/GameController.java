@@ -50,9 +50,13 @@ public class GameController {
             System.out.println("How many loops do you want AI play?");
             loops = scanner.nextInt();
         }
+        scanner.close();
         boolean breakable = true;
-        while (loops > 0 && breakable) {
+        while (loops > 0 || !breakable) {
             breakable = true;
+
+            player.cards.clear();
+            dealer.cards.clear();
 
             player.AddCard(cardController.SendCard());
             player.AddCard(cardController.SendCard());
@@ -64,29 +68,42 @@ public class GameController {
             System.out.println("---player round---");
             while (player.MakeDecision(dealer.GetVisibleCard()) == Player.DecisionType.HIT) {
                 System.out.println("Player hit");
+
+                System.out.println("After Decision:");
                 player.AddCard(cardController.SendCard());
                 ShowCards();
             }
             System.out.println("Player stand");
 
+            System.out.println("After Decision:");
+            ShowCards();
+
+
             System.out.println("---dealer round---");
             while (dealer.MakeDecision(dealer.GetVisibleCard()) == Player.DecisionType.HIT) {
                 System.out.println("Dealer hit");
+
+                System.out.println("After Decision:");
                 dealer.AddCard(cardController.SendCard());
                 ShowCards();
             }
             System.out.println("Dealer stand");
 
+            System.out.println("After Decision:");
+            ShowCards();
+
             DisplayResult(player, dealer);
 
             if (player instanceof HumanPlayer) {
                 System.out.println("Do you want to play again? (y/n)");
+                scanner=new Scanner(System.in);
                 String answer = scanner.next();
                 if (answer.equals("y")) {
                     breakable = false;
                 }
             }
             loops--;
+            System.out.println(breakable);
         }
         
         System.out.println("---Game Over---");
@@ -106,6 +123,8 @@ public class GameController {
     }
 
     public void DisplayResult(Player player, Player dealer) {
+        gameState = GameState.GameOver;
+        ShowCards();
         if (player.CalculatePossiblePointSum().size() == 0) {
             System.out.println("The winner is Dealer!");
             dealerWinCounter++;

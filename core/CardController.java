@@ -1,6 +1,7 @@
 package core;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class CardController {
     public CardController() {
@@ -43,7 +44,8 @@ public class CardController {
             //reinitialize cards
             InitializeCards();
         }
-        int randomIndex = (int) (Math.random()) % cards.size();
+        Random rand=new Random();
+        int randomIndex = Math.abs(rand.nextInt()) % cards.size();
         return cards.remove(randomIndex);
     }
 

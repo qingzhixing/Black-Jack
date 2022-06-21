@@ -29,7 +29,7 @@ public class Main {
                 System.out.println("Thanks for playing!");
                 scanner.close();
                 return;
-            default:
+        default :
                 System.out.println("Invalid input!");
                 scanner.close();
                 return;

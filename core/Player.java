@@ -31,7 +31,7 @@ public abstract class Player {
                 cardACounter++;
             }
         }
-        while (cardACounter > 0) {
+        while (cardACounter >= 0) {
             int processedSum = pointSum - cardACounter * 10;
             if (processedSum <= 21 && processedSum >= 0) {
                 possiblePointSum.add(processedSum);
@@ -43,6 +43,10 @@ public abstract class Player {
     }
 
     public abstract DecisionType MakeDecision(Card dealerVisibleCard);
+
+    public final boolean CheckBust(){
+        return this.CalculatePossiblePointSum().size() == 0;
+    }
 
     public String GetCardsString() {
         if (cards.size() == 0) {
