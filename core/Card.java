@@ -1,7 +1,7 @@
 package core;
 
 public class Card {
-    public static enum CardPoints {
+    public enum CardPoints {
         Card2(2, "2"),
         Card3(3, "3"),
         Card4(4, "4"),
@@ -40,7 +40,7 @@ public class Card {
 
     
 
-    private CardPoints point;
+    private final CardPoints point;
 
     public CardPoints GetPoint() {
         return point;

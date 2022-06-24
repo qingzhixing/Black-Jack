@@ -12,14 +12,10 @@ public class CardController {
     }
 
     public CardController(int deckAmount,boolean enableWhiteCard) throws IllegalArgumentException {
-        try{
-            SetDeckAmount(deckAmount);
-            this.enableWhiteCard = enableWhiteCard;
-            cards = new LinkedList<>();
-            InitializeCards();
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
+        SetDeckAmount(deckAmount);
+        this.enableWhiteCard = enableWhiteCard;
+        cards = new LinkedList<>();
+        InitializeCards();
     }
 
     public void InitializeCards() {
@@ -69,7 +65,7 @@ public class CardController {
     }
 
     private int deckAmount;
-    private LinkedList<Card> cards;
+    private final LinkedList<Card> cards;
     private boolean enableWhiteCard;
 
 }

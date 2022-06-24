@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class HumanPlayer extends Player{
     @Override
     public DecisionType MakeDecision(Card dealerVisibleCard) {
+
         System.out.println("Human Deciding...");
         if(this.CheckBust()){
             System.out.println("You're already busted");
@@ -17,7 +18,10 @@ public class HumanPlayer extends Player{
         while(!inputValid){
             System.out.printf("The Dealer's cards are [ #, %s ]\n",dealerVisibleCard.GetPoint().toString());
             System.out.println("Please decide:[1] Hit. [2] Stand.");
-            int input=scanner.nextInt();
+            int input=1;
+            if(scanner.hasNext()){
+                input=scanner.nextInt();
+            }
             inputValid=true;
             switch (input) {
                 case 1:
@@ -31,7 +35,6 @@ public class HumanPlayer extends Player{
                     break;
             }
         }
-        scanner.close();
         return decision;
     }
 }

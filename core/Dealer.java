@@ -9,7 +9,7 @@ public class Dealer extends Player{
         }
         int maxSum=0;
         for (int sum : this.CalculatePossiblePointSum()) {
-            sum = Math.max(sum, maxSum);
+            maxSum = Math.max(sum, maxSum);
         }
         if (maxSum >= 17) {
             return DecisionType.STAND;
@@ -22,17 +22,17 @@ public class Dealer extends Player{
             return "[ ]";
         }
 
-        StringBuilder sb = new StringBuilder("#");
+        StringBuilder stringBuilder = new StringBuilder("#");
         if (cards.size() >= 2) {
-            sb.append(", ");
+            stringBuilder.append(", ");
         }
         for (int i = 1; i < cards.size(); i++) {
-            sb.append(cards.get(i).GetPoint().toString());
+            stringBuilder.append(cards.get(i).GetPoint().toString());
             if (i != cards.size() - 1) {
-                sb.append(", ");
+                stringBuilder.append(", ");
             }
         }
-        return "[ " + sb.toString() + " ]";
+        return "[ " + stringBuilder + " ]";
     }
 
     public Card GetVisibleCard() {

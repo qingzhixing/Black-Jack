@@ -1,10 +1,12 @@
 package core;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Scanner;
 //TODO:白卡判定
 
 public class GameController {
-    public static enum GameState {
+    public enum GameState {
         GameGoing,
         GameOver,
     }
@@ -48,9 +50,10 @@ public class GameController {
         int loops = 1;
         if (player instanceof AIPlayer) {
             System.out.println("How many loops do you want AI play?");
-            loops = scanner.nextInt();
+            if(scanner.hasNext()) {
+                loops= scanner.nextInt();
+            }
         }
-        scanner.close();
         boolean breakable = true;
         while (loops > 0 || !breakable) {
             breakable = true;
@@ -96,8 +99,10 @@ public class GameController {
 
             if (player instanceof HumanPlayer) {
                 System.out.println("Do you want to play again? (y/n)");
-                scanner=new Scanner(System.in);
-                String answer = scanner.next();
+                String answer = "y";
+                if(scanner.hasNext()) {
+                    answer=scanner.next();
+                }
                 if (answer.equals("y")) {
                     breakable = false;
                 }
@@ -118,11 +123,10 @@ public class GameController {
             System.out.printf("The probability of a player winning is %.2f%%\n",
                     (double) playerWinCounter / (playerWinCounter + dealerWinCounter) * 100);
         }
-
-        scanner.close();
     }
 
-    public void DisplayResult(Player player, Player dealer) {
+    public void DisplayResult(@NotNull Player player,@NotNull Player dealer) {
+        System.out.println("---display result---");
         gameState = GameState.GameOver;
         ShowCards();
         if (player.CalculatePossiblePointSum().size() == 0) {
@@ -156,9 +160,9 @@ public class GameController {
 
     }
     
-    private Player player;
-    private Dealer dealer;
-    private CardController cardController;
+    private final Player player;
+    private final Dealer dealer;
+    private final CardController cardController;
     private int playerWinCounter;
     private int dealerWinCounter;
     private int drawCounter;

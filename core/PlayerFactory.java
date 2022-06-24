@@ -1,7 +1,7 @@
 package core;
 
 public class PlayerFactory {
-    public static enum PlayerType {
+    public enum PlayerType {
         HUMAN, AI, CHEAT_AI;
     }
 

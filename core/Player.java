@@ -1,12 +1,14 @@
 package core;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public abstract class Player {
-    public static enum DecisionType {
+    public enum DecisionType {
         HIT,
         STAND,
-    };
+    }
 
     public Player() {
         cards = new ArrayList<>();
@@ -20,7 +22,7 @@ public abstract class Player {
         return cards;
     }
 
-    public final ArrayList<Integer> CalculatePossiblePointSum() {
+    public final @NotNull ArrayList<Integer> CalculatePossiblePointSum() {
         ArrayList<Integer> possiblePointSum = new ArrayList<>();
         
         int cardACounter = 0;
