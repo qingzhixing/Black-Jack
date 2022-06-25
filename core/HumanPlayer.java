@@ -11,6 +11,10 @@ public class HumanPlayer extends Player{
             System.out.println("You're already busted");
             return DecisionType.STAND;
         }
+        if(this.GetMaxPointSum()==21){
+            System.out.println("You're already Black Jack!");
+            return DecisionType.STAND;
+        }
 
         Scanner scanner = new Scanner(System.in);
         DecisionType decision=DecisionType.STAND;

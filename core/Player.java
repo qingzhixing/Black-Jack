@@ -62,7 +62,16 @@ public abstract class Player {
                 sb.append(", ");
             }
         }
-        return "[ " + sb.toString() + " ]";
+        return "[ " + sb + " ]";
+    }
+
+    public final int GetMaxPointSum(){
+        int sum=0;
+        ArrayList<Integer> possiblePointSum = this.CalculatePossiblePointSum();
+        for(var item:possiblePointSum){
+            sum=Math.max(sum,item);
+        }
+        return sum;
     }
 
     protected ArrayList<Card> cards;

@@ -38,14 +38,9 @@ public class GameController {
                 break;
         }
     }
-    
-    public void InitializeGame() {
-        gameState = GameState.GameGoing;
-        cardController.InitializeCards();
-    }
-    
+
     public void StartGame() {
-        InitializeGame();
+        cardController.InitializeCards();
         Scanner scanner = new Scanner(System.in);
         int loops = 1;
         if (player instanceof AIPlayer) {
@@ -56,6 +51,7 @@ public class GameController {
         }
         boolean breakable = true;
         while (loops > 0 || !breakable) {
+            gameState = GameState.GameGoing;
             breakable = true;
 
             player.cards.clear();
@@ -108,7 +104,6 @@ public class GameController {
                 }
             }
             loops--;
-            System.out.println(breakable);
         }
         
         System.out.println("---Game Over---");

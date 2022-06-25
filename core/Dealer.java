@@ -7,11 +7,9 @@ public class Dealer extends Player{
         if (this.CheckBust()) {
             return DecisionType.STAND;
         }
-        int maxSum=0;
-        for (int sum : this.CalculatePossiblePointSum()) {
-            maxSum = Math.max(sum, maxSum);
-        }
+        int maxSum=this.GetMaxPointSum();
         if (maxSum >= 17) {
+            System.out.println("Dealer's max sum is " + maxSum + " and dealer will stand.");
             return DecisionType.STAND;
         }
         return DecisionType.HIT;
