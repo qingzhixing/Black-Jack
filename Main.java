@@ -14,6 +14,7 @@ public class Main {
         }
         if(deckAmount<=0||deckAmount>=9){
             System.out.println("Deck amount must be greater than 0 and less than 9.Set to 1.");
+            deckAmount=1;
         }
         System.out.println("Do you want to enable white card? (y/n)");
         boolean enableWhiteCard = false;
