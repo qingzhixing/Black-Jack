@@ -1,2 +1,2 @@
 # Black-Jack
-21点游戏Java实现
+Blackjack game Java implementation
