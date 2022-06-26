@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="BlackJack:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BlackJack_jar</output-path>
+    <root id="root">
+      <element id="archive" name="BlackJack.jar">
+        <element id="module-output" name="BlackJack" />
+      </element>
+      <element id="file-copy" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/20.1.0/annotations-20.1.0.jar" />
+    </root>
+  </artifact>
+</component>
