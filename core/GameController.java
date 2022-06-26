@@ -131,11 +131,7 @@ public class GameController {
         ShowCards();
 
         ResultType result;
-        if(player.HasWhiteCard()){
-            result = ResultType.Lose;
-        }else if(dealer.HasWhiteCard()) {
-            result = ResultType.Win;
-        }else if (player.CalculatePossiblePointSum().size() == 0) {
+        if (player.CalculatePossiblePointSum().size() == 0) {
             result=ResultType.Lose;
         }else if (dealer.CalculatePossiblePointSum().size() == 0) {
             result=ResultType.Win;

@@ -40,9 +40,17 @@ public class CardController {
             //reinitialize cards
             InitializeCards();
         }
-        Random rand=new Random();
-        int randomIndex = Math.abs(rand.nextInt()) % cards.size();
-        return cards.remove(randomIndex);
+        Card send;
+        do{
+            int randomIndex =new Random().nextInt(cards.size());
+            send=cards.get(randomIndex);
+            if(send.GetPoint()==Card.CardPoints.CardWhite){
+                System.out.println("Next card is Card White,reinitialize cards.");
+                InitializeCards();
+            }
+        }while(send.GetPoint()==Card.CardPoints.CardWhite);
+        cards.remove(send);
+        return send;
     }
 
     public int GetDeckAmount() {
