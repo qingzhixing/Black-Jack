@@ -23,8 +23,18 @@ public class Main {
         }
 
         System.out.println("Choose Game Mode: [1] Human. [2] AI. [3] AI with Cheat [0] Quit");
-        int gameMode = scanner.nextInt();
+        int gameMode = 1;
+        if(scanner.hasNext()){
+            gameMode = scanner.nextInt();
+        }
         Player playerAI;
+
+        //TODO:Delete after finishing Cheat AI.
+        if(gameMode==3){
+            System.out.println("Sorry, Cheat AI is not available yet.");
+            gameMode=1;
+        }
+
         switch (gameMode) {
             case 1:
                 playerAI = PlayerFactory.CreatePlayer(PlayerFactory.PlayerType.HUMAN);
