@@ -47,7 +47,16 @@ public abstract class Player {
     public abstract DecisionType MakeDecision(Card dealerVisibleCard);
 
     public final boolean CheckBust(){
-        return this.CalculatePossiblePointSum().size() == 0;
+        return ((HasWhiteCard())||(CalculatePossiblePointSum().size()==0));
+    }
+
+    public final boolean HasWhiteCard(){
+        for(Card card : cards){
+            if(card.GetPoint() == Card.CardPoints.CardWhite){
+                return true;
+            }
+        }
+        return false;
     }
 
     public String GetCardsString() {

@@ -3,12 +3,17 @@ package core;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Scanner;
-//TODO:白卡判定
 
 public class GameController {
     public enum GameState {
         GameGoing,
         GameOver,
+    }
+
+    public enum ResultType{
+        Win,
+        Lose,
+        Draw,
     }
     
     public GameController() {
@@ -124,33 +129,41 @@ public class GameController {
         System.out.println("---display result---");
         gameState = GameState.GameOver;
         ShowCards();
-        if (player.CalculatePossiblePointSum().size() == 0) {
-            System.out.println("The winner is Dealer!");
-            dealerWinCounter++;
-            return;
+
+        ResultType result;
+        if(player.HasWhiteCard()){
+            result = ResultType.Lose;
+        }else if(dealer.HasWhiteCard()) {
+            result = ResultType.Win;
+        }else if (player.CalculatePossiblePointSum().size() == 0) {
+            result=ResultType.Lose;
+        }else if (dealer.CalculatePossiblePointSum().size() == 0) {
+            result=ResultType.Win;
+        }else{
+            int playerCardsSum = player.GetMaxPointSum();
+            int dealerCardsSum = dealer.GetMaxPointSum();
+            if (playerCardsSum > dealerCardsSum) {
+                result=ResultType.Win;
+            } else if (playerCardsSum < dealerCardsSum) {
+                result=ResultType.Lose;
+            } else {
+                result=ResultType.Draw;
+            }
         }
-        if (dealer.CalculatePossiblePointSum().size() == 0) {
-            System.out.println("The winner is Player!");
-            playerWinCounter++;
-            return;
-        }
-        int playerCardsSum = 0;
-        int dealerCardsSum = 0;
-        for (int item : player.CalculatePossiblePointSum()) {
-            playerCardsSum = Math.max(playerCardsSum, item);
-        }
-        for (int item : dealer.CalculatePossiblePointSum()) {
-            dealerCardsSum = Math.max(dealerCardsSum, item);
-        }
-        if (playerCardsSum > dealerCardsSum) {
-            System.out.println("The winner is Player!");
-            playerWinCounter++;
-        } else if (playerCardsSum < dealerCardsSum) {
-            System.out.println("The winner is Dealer!");
-            dealerWinCounter++;
-        } else {
-            System.out.println("Even!There is no winner!");
-            drawCounter++;
+
+        switch(result){
+            case Win:
+                System.out.println("The winner is Player!");
+                playerWinCounter++;
+                break;
+            case Lose:
+                System.out.println("The winner is Dealer!");
+                dealerWinCounter++;
+                break;
+            case Draw:
+                System.out.println("Draw!There is no winner!");
+                drawCounter++;
+                break;
         }
 
     }
