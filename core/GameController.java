@@ -131,9 +131,9 @@ public class GameController {
         ShowCards();
 
         ResultType result;
-        if (player.CalculatePossiblePointSum().size() == 0) {
+        if (player.CheckBust()) {
             result=ResultType.Lose;
-        }else if (dealer.CalculatePossiblePointSum().size() == 0) {
+        }else if (dealer.CheckBust()) {
             result=ResultType.Win;
         }else{
             int playerCardsSum = player.GetMaxPointSum();
