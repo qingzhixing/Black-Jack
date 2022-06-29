@@ -1,10 +1,6 @@
 package core;
 
 public class PlayerFactory {
-    public enum PlayerType {
-        HUMAN, AI, CHEAT_AI;
-    }
-
     public static Player CreatePlayer(PlayerType mode) {
         switch (mode) {
             case HUMAN:
@@ -16,5 +12,9 @@ public class PlayerFactory {
             default:
                 return null;
         }
+    }
+
+    public enum PlayerType {
+        HUMAN, AI, CHEAT_AI;
     }
 }

@@ -1,6 +1,20 @@
 package core;
 
 public class Card {
+    private final CardPoints point;
+
+    public Card() {
+        point = CardPoints.CardA;
+    }
+
+    public Card(CardPoints point) {
+        this.point = point;
+    }
+
+    public CardPoints GetPoint() {
+        return point;
+    }
+
     public enum CardPoints {
         Card2(2, "2"),
         Card3(3, "3"),
@@ -28,21 +42,5 @@ public class Card {
         public String toString() {
             return stringValue;
         }
-    }
-
-    public Card() {
-        point = CardPoints.CardA;
-    }
-
-    public Card(CardPoints point) {
-        this.point = point;
-    }
-
-    
-
-    private final CardPoints point;
-
-    public CardPoints GetPoint() {
-        return point;
     }
 }

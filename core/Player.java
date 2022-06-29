@@ -5,15 +5,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public abstract class Player {
-    public enum DecisionType {
-        HIT,
-        STAND,
-    }
+    protected ArrayList<Card> cards;
+    private int winCounter;
 
     public Player() {
         cards = new ArrayList<>();
+        winCounter = 0;
     }
-    
+
     public final void AddCard(Card card) {
         cards.add(card);
     }
@@ -24,7 +23,7 @@ public abstract class Player {
 
     public final @NotNull ArrayList<Integer> CalculatePossiblePointSum() {
         ArrayList<Integer> possiblePointSum = new ArrayList<>();
-        
+
         int cardACounter = 0;
         int pointSum = 0;
         for (Card card : cards) {
@@ -46,7 +45,7 @@ public abstract class Player {
 
     public abstract DecisionType MakeDecision(Card dealerVisibleCard);
 
-    public final boolean CheckBust(){
+    public final boolean CheckBust() {
         return CalculatePossiblePointSum().size() == 0;
     }
 
@@ -54,7 +53,7 @@ public abstract class Player {
         if (cards.size() == 0) {
             return "[ ]";
         }
-        
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cards.size(); i++) {
             sb.append(cards.get(i).GetPoint().toString());
@@ -65,14 +64,25 @@ public abstract class Player {
         return "[ " + sb + " ]";
     }
 
-    public final int GetMaxPointSum(){
-        int sum=0;
+    public final int GetMaxPointSum() {
+        int sum = 0;
         ArrayList<Integer> possiblePointSum = this.CalculatePossiblePointSum();
-        for(var item:possiblePointSum){
-            sum=Math.max(sum,item);
+        for (var item : possiblePointSum) {
+            sum = Math.max(sum, item);
         }
         return sum;
     }
 
-    protected ArrayList<Card> cards;
+    public void Win() {
+        winCounter++;
+    }
+
+    public final int GetWinCounter() {
+        return winCounter;
+    }
+
+    public enum DecisionType {
+        HIT,
+        STAND,
+    }
 }

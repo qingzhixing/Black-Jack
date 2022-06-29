@@ -1,20 +1,20 @@
 package core;
 
-public class Dealer extends Player{
+public class Dealer extends Player {
 
     @Override
     public DecisionType MakeDecision(Card dealerVisibleCard) {
         if (this.CheckBust()) {
             return DecisionType.STAND;
         }
-        int maxSum=this.GetMaxPointSum();
+        int maxSum = this.GetMaxPointSum();
         if (maxSum >= 17) {
             System.out.println("Dealer's max sum is " + maxSum + " and dealer will stand.");
             return DecisionType.STAND;
         }
         return DecisionType.HIT;
     }
-    
+
     public String GetCardsStringHideFirst() {
         if (cards.size() == 0) {
             return "[ ]";

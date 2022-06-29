@@ -4,6 +4,10 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class CardController {
+    private final LinkedList<Card> cards;
+    private int deckAmount;
+    private boolean enableWhiteCard;
+
     public CardController() {
         SetDeckAmount(1);
         enableWhiteCard = false;
@@ -11,7 +15,7 @@ public class CardController {
         InitializeCards();
     }
 
-    public CardController(int deckAmount,boolean enableWhiteCard) throws IllegalArgumentException {
+    public CardController(int deckAmount, boolean enableWhiteCard) throws IllegalArgumentException {
         SetDeckAmount(deckAmount);
         this.enableWhiteCard = enableWhiteCard;
         cards = new LinkedList<>();
@@ -34,21 +38,21 @@ public class CardController {
             cards.add(new Card(Card.CardPoints.CardWhite));
         }
     }
-    
+
     public Card SendCard() {
         if (cards.size() < 10) {
             //reinitialize cards
             InitializeCards();
         }
         Card send;
-        do{
-            int randomIndex =new Random().nextInt(cards.size());
-            send=cards.get(randomIndex);
-            if(send.GetPoint()==Card.CardPoints.CardWhite){
+        do {
+            int randomIndex = new Random().nextInt(cards.size());
+            send = cards.get(randomIndex);
+            if (send.GetPoint() == Card.CardPoints.CardWhite) {
                 System.out.println("Next card is Card White,reinitialize cards.");
                 InitializeCards();
             }
-        }while(send.GetPoint()==Card.CardPoints.CardWhite);
+        } while (send.GetPoint() == Card.CardPoints.CardWhite);
         cards.remove(send);
         return send;
     }
@@ -71,9 +75,5 @@ public class CardController {
     public void SetEnableWhiteCard(boolean enableWhiteCard) {
         this.enableWhiteCard = enableWhiteCard;
     }
-
-    private int deckAmount;
-    private final LinkedList<Card> cards;
-    private boolean enableWhiteCard;
 
 }
