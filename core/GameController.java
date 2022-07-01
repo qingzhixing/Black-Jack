@@ -15,6 +15,9 @@ public class GameController {
         player = new HumanPlayer();
         dealer = new Dealer();
         cardController = new CardController();
+        //设置钩子
+        cardController.SetListener(player.GetCardControllerListener());
+        gameControllerListener = player.GetGameControllerListener();
     }
 
     public GameController(int deckAmount, boolean enableWhiteCard, Player playerAI) {
@@ -23,6 +26,7 @@ public class GameController {
         cardController = new CardController(deckAmount, enableWhiteCard);
         //设置钩子
         cardController.SetListener(player.GetCardControllerListener());
+        gameControllerListener = player.GetGameControllerListener();
     }
 
     public void SetListener(@NotNull GameControllerListener gameControllerListener) {
@@ -44,6 +48,8 @@ public class GameController {
     }
 
     public void StartGame() {
+        gameControllerListener.OnGameStart();
+
         cardController.InitializeCards();
         Scanner scanner = new Scanner(System.in);
         int loops = 1;
@@ -55,6 +61,8 @@ public class GameController {
         }
         boolean breakable = true;
         while (loops > 0 || !breakable) {
+            gameControllerListener.OnNewLoop();
+
             gameState = GameState.GameGoing;
             breakable = true;
 
@@ -110,12 +118,13 @@ public class GameController {
             //不同类型的AI游戏局数不同
             loops -= player.GetConsumedLoopAmount();
         }
-        System.out.println("---Game Over---");
+        System.out.println("---Game End---");
         System.out.printf("Player won %d times\n", player.GetWinCounter());
         System.out.printf("Player lost %d times\n", player.GetLoseCounter());
         System.out.printf("Drew %d times\n", player.GetDrawCounter());
         System.out.printf("The probability of player winning is %.2f%%\n",
                 player.CalculateWinningProbability() * 100);
+        gameControllerListener.OnGameEnd();
     }
 
     public void DisplayResult(@NotNull Player player, @NotNull Player dealer) {
@@ -145,16 +154,19 @@ public class GameController {
                 System.out.println("The winner is Player!");
                 player.Win();
                 dealer.Lose();
+                gameControllerListener.OnGameWin();
                 break;
             case Lose:
                 System.out.println("The winner is Dealer!");
                 dealer.Win();
                 player.Lose();
+                gameControllerListener.OnGameLose();
                 break;
             case Draw:
                 System.out.println("Draw!There is no winner!");
                 player.Draw();
                 dealer.Draw();
+                gameControllerListener.OnGameDraw();
                 break;
         }
 

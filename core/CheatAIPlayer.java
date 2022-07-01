@@ -17,6 +17,7 @@ public class CheatAIPlayer extends AIPlayer {
                             } else if (send.GetPoint().intValue >= 10) {
                                 advantagesValue--;
                             }
+                            System.out.println("Debug advantages value: " + advantagesValue);
                         },
                         () -> {
                             System.out.println("Debug listened card initialize");
@@ -24,11 +25,22 @@ public class CheatAIPlayer extends AIPlayer {
                         }
                 )
         );
+        GameControllerListener gameControllerListener = new GameControllerListener();
+        gameControllerListener.SetNewLoopHook(this::NewLoop);
+        SetGameControllerListener(gameControllerListener);
         isEnableCheatAI = false;
     }
 
     private double CalculateAdvantageRate() {
         return (double) (advantagesValue - 1) * 0.5 / 100.0;
+    }
+
+    private void NewLoop() {
+        System.out.println("Debug listened new loop");
+        //标准玩法AI胜率47%,优势胜率超过3%则玩家整体胜率超过50%
+        isEnableCheatAI = CalculateAdvantageRate() > 0.03;
+        //TODO:DELETE DEBUG:
+        isEnableCheatAI = CalculateAdvantageRate() > 0.04;
     }
 
     @Override
