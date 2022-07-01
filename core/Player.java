@@ -7,17 +7,25 @@ import java.util.ArrayList;
 public abstract class Player {
     protected ArrayList<Card> cards;
     private int winCounter;
+    private int loseCounter;
+    private int drawCounter;
+    private CardControllerListener cardControllerListener;
+    private GameControllerListener gameControllerListener;
 
     public Player() {
         cards = new ArrayList<>();
         winCounter = 0;
+        loseCounter = 0;
+        drawCounter = 0;
+        cardControllerListener = new CardControllerListener();
+        gameControllerListener = new GameControllerListener();
     }
 
-    public final void AddCard(Card card) {
+    public final void AddCard(@NotNull Card card) {
         cards.add(card);
     }
 
-    public final ArrayList<Card> GetCards() {
+    public final @NotNull ArrayList<Card> GetCards() {
         return cards;
     }
 
@@ -43,13 +51,13 @@ public abstract class Player {
         return possiblePointSum;
     }
 
-    public abstract DecisionType MakeDecision(Card dealerVisibleCard);
+    public abstract @NotNull DecisionType MakeDecision(@NotNull Card dealerVisibleCard);
 
     public final boolean CheckBust() {
         return CalculatePossiblePointSum().size() == 0;
     }
 
-    public String GetCardsString() {
+    public @NotNull String GetCardsString() {
         if (cards.size() == 0) {
             return "[ ]";
         }
@@ -77,8 +85,54 @@ public abstract class Player {
         winCounter++;
     }
 
+    public void Lose() {
+        loseCounter++;
+    }
+
+    public void Draw() {
+        drawCounter++;
+    }
+
+    public final double CalculateWinningProbability() {
+        if (winCounter == 0) {
+            return 0;
+        }
+        if (loseCounter == 0) {
+            return 1;
+        }
+        return (double) winCounter / (winCounter + loseCounter);
+    }
+
+    public int GetConsumedLoopAmount() {
+        return 1;
+    }
+
     public final int GetWinCounter() {
         return winCounter;
+    }
+
+    public final int GetLoseCounter() {
+        return loseCounter;
+    }
+
+    public final int GetDrawCounter() {
+        return drawCounter;
+    }
+
+    public final void SetCardControllerListener(@NotNull CardControllerListener listener) {
+        this.cardControllerListener = listener;
+    }
+
+    public final @NotNull CardControllerListener GetCardControllerListener() {
+        return cardControllerListener;
+    }
+
+    public final void SetGameControllerListener(@NotNull GameControllerListener listener) {
+        this.gameControllerListener = listener;
+    }
+
+    public final @NotNull GameControllerListener GetGameControllerListener() {
+        return gameControllerListener;
     }
 
     public enum DecisionType {

@@ -1,5 +1,7 @@
 package core;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -7,6 +9,7 @@ public class CardController {
     private final LinkedList<Card> cards;
     private int deckAmount;
     private boolean enableWhiteCard;
+    private CardControllerListener listener = new CardControllerListener();
 
     public CardController() {
         SetDeckAmount(1);
@@ -23,6 +26,7 @@ public class CardController {
     }
 
     public void InitializeCards() {
+        listener.OnCardInitialize();
         cards.clear();
         for (int deck = 1; deck <= deckAmount; deck++) {
             for (int suit = 1; suit <= 4; suit++) {
@@ -39,7 +43,7 @@ public class CardController {
         }
     }
 
-    public Card SendCard() {
+    public @NotNull Card SendCard() {
         if (cards.size() < 10) {
             //reinitialize cards
             InitializeCards();
@@ -54,6 +58,7 @@ public class CardController {
             }
         } while (send.GetPoint() == Card.CardPoints.CardWhite);
         cards.remove(send);
+        listener.OnCardSend(send);
         return send;
     }
 
@@ -74,6 +79,10 @@ public class CardController {
 
     public void SetEnableWhiteCard(boolean enableWhiteCard) {
         this.enableWhiteCard = enableWhiteCard;
+    }
+
+    public void SetListener(@NotNull CardControllerListener listener) {
+        this.listener = listener;
     }
 
 }

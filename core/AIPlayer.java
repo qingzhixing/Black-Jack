@@ -1,9 +1,11 @@
 package core;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AIPlayer extends Player {
 
     @Override
-    public Player.DecisionType MakeDecision(Card dealerVisibleCard) {
+    public Player.@NotNull DecisionType MakeDecision(@NotNull Card dealerVisibleCard) {
         if (this.CheckBust()) {
             System.out.println("AI busted");
             return DecisionType.STAND;

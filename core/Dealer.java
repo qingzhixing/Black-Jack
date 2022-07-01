@@ -1,9 +1,11 @@
 package core;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Dealer extends Player {
 
     @Override
-    public DecisionType MakeDecision(Card dealerVisibleCard) {
+    public @NotNull DecisionType MakeDecision(@NotNull Card dealerVisibleCard) {
         if (this.CheckBust()) {
             return DecisionType.STAND;
         }

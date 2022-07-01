@@ -1,10 +1,12 @@
 package core;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Scanner;
 
 public class HumanPlayer extends Player {
     @Override
-    public DecisionType MakeDecision(Card dealerVisibleCard) {
+    public @NotNull DecisionType MakeDecision(@NotNull Card dealerVisibleCard) {
 
         System.out.println("Human Deciding...");
         if (this.CheckBust()) {

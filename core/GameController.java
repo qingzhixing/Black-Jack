@@ -9,6 +9,7 @@ public class GameController {
     private final Dealer dealer;
     private final CardController cardController;
     private GameState gameState;
+    private GameControllerListener gameControllerListener = new GameControllerListener();
 
     public GameController() {
         player = new HumanPlayer();
@@ -20,6 +21,12 @@ public class GameController {
         player = playerAI;
         dealer = new Dealer();
         cardController = new CardController(deckAmount, enableWhiteCard);
+        //设置钩子
+        cardController.SetListener(player.GetCardControllerListener());
+    }
+
+    public void SetListener(@NotNull GameControllerListener gameControllerListener) {
+        this.gameControllerListener = gameControllerListener;
     }
 
     private void ShowCards() {
@@ -100,22 +107,15 @@ public class GameController {
                     breakable = false;
                 }
             }
-            loops--;
+            //不同类型的AI游戏局数不同
+            loops -= player.GetConsumedLoopAmount();
         }
-
-        int playerWinCounter = player.GetWinCounter();
-        int dealerWinCounter = dealer.GetWinCounter();
         System.out.println("---Game Over---");
-        System.out.printf("Player won %d times\n", playerWinCounter);
-        System.out.printf("Dealer won %d times\n", dealerWinCounter);
-        if (playerWinCounter == 0) {
-            System.out.println("The probability of a player winning is 0%");
-        } else if (dealerWinCounter == 0) {
-            System.out.println("The probability of a player winning is 100%");
-        } else {
-            System.out.printf("The probability of a player winning is %.2f%%\n",
-                    (double) playerWinCounter / (playerWinCounter + dealerWinCounter) * 100);
-        }
+        System.out.printf("Player won %d times\n", player.GetWinCounter());
+        System.out.printf("Player lost %d times\n", player.GetLoseCounter());
+        System.out.printf("Drew %d times\n", player.GetDrawCounter());
+        System.out.printf("The probability of player winning is %.2f%%\n",
+                player.CalculateWinningProbability() * 100);
     }
 
     public void DisplayResult(@NotNull Player player, @NotNull Player dealer) {
@@ -144,13 +144,17 @@ public class GameController {
             case Win:
                 System.out.println("The winner is Player!");
                 player.Win();
+                dealer.Lose();
                 break;
             case Lose:
                 System.out.println("The winner is Dealer!");
                 dealer.Win();
+                player.Lose();
                 break;
             case Draw:
                 System.out.println("Draw!There is no winner!");
+                player.Draw();
+                dealer.Draw();
                 break;
         }
 

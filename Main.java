@@ -1,6 +1,8 @@
-import java.util.Scanner;
+import core.GameController;
+import core.Player;
+import core.PlayerFactory;
 
-import core.*;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,31 +11,25 @@ public class Main {
         System.out.println("Welcome to BlackJack!");
         System.out.println("How many decks do you want to use? (1 to 8)");
         int deckAmount = 0;
-        if(scanner.hasNext()){
+        if (scanner.hasNext()) {
             deckAmount = scanner.nextInt();
         }
-        if(deckAmount<=0||deckAmount>=9){
+        if (deckAmount <= 0 || deckAmount >= 9) {
             System.out.println("Deck amount must be greater than 0 and less than 9.Set to 1.");
-            deckAmount=1;
+            deckAmount = 1;
         }
         System.out.println("Do you want to enable white card? (y/n)");
         boolean enableWhiteCard = false;
-        if(scanner.hasNext()){
-            enableWhiteCard=scanner.next().equals("y");
+        if (scanner.hasNext()) {
+            enableWhiteCard = scanner.next().equals("y");
         }
 
         System.out.println("Choose Game Mode: [1] Human. [2] AI. [3] AI with Cheat [0] Quit");
         int gameMode = 1;
-        if(scanner.hasNext()){
+        if (scanner.hasNext()) {
             gameMode = scanner.nextInt();
         }
         Player playerAI;
-
-        //TODO:Delete after finishing Cheat AI.
-        if(gameMode==3){
-            System.out.println("Sorry, Cheat AI is not available yet.");
-            gameMode=1;
-        }
 
         switch (gameMode) {
             case 1:
@@ -48,11 +44,11 @@ public class Main {
             case 0:
                 System.out.println("Thanks for playing!");
                 return;
-        default :
+            default:
                 System.out.println("Invalid input!");
                 return;
         }
-        gameController = new GameController(deckAmount, enableWhiteCard,playerAI);
+        gameController = new GameController(deckAmount, enableWhiteCard, playerAI);
         gameController.StartGame();
     }
 }
