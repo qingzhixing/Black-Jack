@@ -11,7 +11,6 @@ public class CheatAIPlayer extends AIPlayer {
         SetCardControllerListener(
                 new CardControllerListener(
                         (Card send) -> {
-                            System.out.println("Debug listened send card: " + send.GetPoint());
                             if (send.GetPoint().intValue <= 6) {
                                 advantagesValue++;
                             } else if (send.GetPoint().intValue >= 10) {
@@ -19,10 +18,7 @@ public class CheatAIPlayer extends AIPlayer {
                             }
                             System.out.println("Debug advantages value: " + advantagesValue);
                         },
-                        () -> {
-                            System.out.println("Debug listened card initialize");
-                            advantagesValue = 0;
-                        }
+                        () -> advantagesValue = 0
                 )
         );
         GameControllerListener gameControllerListener = new GameControllerListener();
@@ -37,10 +33,8 @@ public class CheatAIPlayer extends AIPlayer {
 
     private void NewLoop() {
         System.out.println("Debug listened new loop");
-        //标准玩法AI胜率47%,优势胜率超过3%则玩家整体胜率超过50%
-        isEnableCheatAI = CalculateAdvantageRate() > 0.03;
-        //TODO:DELETE DEBUG:
-        isEnableCheatAI = CalculateAdvantageRate() > 0.04;
+        //提高门槛以提高胜率
+        isEnableCheatAI = CalculateAdvantageRate() > 0.05;
     }
 
     @Override
