@@ -24,7 +24,7 @@ public class Main {
             enableWhiteCard = scanner.next().equals("y");
         }
 
-        System.out.println("Choose Game Mode: [1] Human. [2] AI. [3] AI with Cheat [0] Quit");
+        System.out.println("Choose Game Mode: [1] Human. [2] AI. [3] AI with Cheat. [4] Random AI [0] Quit");
         int gameMode = 1;
         if (scanner.hasNext()) {
             gameMode = scanner.nextInt();
@@ -40,6 +40,9 @@ public class Main {
                 break;
             case 3:
                 playerAI = PlayerFactory.CreatePlayer(PlayerFactory.PlayerType.CHEAT_AI);
+                break;
+            case 4:
+                playerAI = PlayerFactory.CreatePlayer(PlayerFactory.PlayerType.RANDOM_AI);
                 break;
             case 0:
                 System.out.println("Thanks for playing!");
