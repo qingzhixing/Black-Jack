@@ -5,8 +5,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public class CheatAICardController extends CardController {
-    public CheatAICardController(int deckAmount, boolean enableWhiteCard) {
+    private final CheatAIChecker checker;
+
+    public CheatAICardController(int deckAmount, boolean enableWhiteCard, CheatAIChecker checker) {
         super(deckAmount, enableWhiteCard);
+        this.checker = checker;
     }
 
     //大概率发小牌
@@ -21,8 +24,8 @@ public class CheatAICardController extends CardController {
             int randomIndex = new Random().nextInt(cards.size());
             send = cards.get(randomIndex);
 
-            //拿到小牌大概率重新洗牌
-            while (send.GetPoint().intValue <= 6 && (new Random().nextInt(100) <= 70)) {
+            //普通AI模式下大概率发小牌
+            while (!checker.IsEnableCheatAI() && send.GetPoint().intValue >= 10 && (new Random().nextInt(100) <= 80)) {
                 randomIndex = new Random().nextInt(cards.size());
                 send = cards.get(randomIndex);
             }
@@ -35,5 +38,10 @@ public class CheatAICardController extends CardController {
         cards.remove(send);
         GetListener().OnCardSend(send);
         return send;
+    }
+
+    @FunctionalInterface
+    public interface CheatAIChecker {
+        boolean IsEnableCheatAI();
     }
 }

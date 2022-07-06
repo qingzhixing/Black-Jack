@@ -35,6 +35,10 @@ public class CheatAIPlayer extends AIPlayer {
         isEnableCheatAI = CalculateAdvantageRate() > 0.05;
     }
 
+    public boolean IsEnableCheatAI() {
+        return isEnableCheatAI;
+    }
+
     @Override
     public void Win() {
         if (isEnableCheatAI) super.Win();

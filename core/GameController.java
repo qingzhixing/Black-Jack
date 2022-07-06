@@ -25,7 +25,7 @@ public class GameController {
         dealer = new Dealer();
         //决策使用哪种CardController
         if (playerAI instanceof CheatAIPlayer) {
-            cardController = new CheatAICardController(deckAmount, enableWhiteCard);
+            cardController = new CheatAICardController(deckAmount, enableWhiteCard, ((CheatAIPlayer) playerAI)::IsEnableCheatAI);
         } else {
             cardController = new CardController(deckAmount, enableWhiteCard);
         }
