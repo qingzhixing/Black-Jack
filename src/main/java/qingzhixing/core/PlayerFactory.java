@@ -1,4 +1,4 @@
-package core;
+package qingzhixing.core;
 
 public class PlayerFactory {
     public static Player CreatePlayer(PlayerType mode) {

@@ -1,4 +1,4 @@
-package core;
+package qingzhixing.core;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +19,7 @@ public class HumanPlayer extends Player {
         }
 
         Scanner scanner = new Scanner(System.in);
-        DecisionType decision = DecisionType.STAND;
+        DecisionType decision = null;
         boolean inputValid = false;
         while (!inputValid) {
             System.out.printf("The Dealer's cards are [ #, %s ]\n", dealerVisibleCard.GetPoint().toString());

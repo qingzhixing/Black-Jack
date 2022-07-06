@@ -1,4 +1,4 @@
-package core;
+package qingzhixing.core;
 
 import org.jetbrains.annotations.NotNull;
 

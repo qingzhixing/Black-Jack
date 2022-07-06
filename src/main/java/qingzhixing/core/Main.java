@@ -1,6 +1,4 @@
-import core.GameController;
-import core.Player;
-import core.PlayerFactory;
+package qingzhixing.core;
 
 import java.util.Scanner;
 

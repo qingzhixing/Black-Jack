@@ -1,4 +1,4 @@
-package core;
+package qingzhixing.core;
 
 public class Card {
     private final CardPoints point;
