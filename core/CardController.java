@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class CardController {
-    private final LinkedList<Card> cards;
+    protected final LinkedList<Card> cards;
     private int deckAmount;
     private boolean enableWhiteCard;
     private CardControllerListener listener = new CardControllerListener();
@@ -83,6 +83,10 @@ public class CardController {
 
     public void SetListener(@NotNull CardControllerListener listener) {
         this.listener = listener;
+    }
+
+    public @NotNull CardControllerListener GetListener() {
+        return listener;
     }
 
 }

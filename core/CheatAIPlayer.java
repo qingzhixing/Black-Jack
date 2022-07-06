@@ -16,7 +16,6 @@ public class CheatAIPlayer extends AIPlayer {
                             } else if (send.GetPoint().intValue >= 10) {
                                 advantagesValue--;
                             }
-                            System.out.println("Debug advantages value: " + advantagesValue);
                         },
                         () -> advantagesValue = 0
                 )
@@ -32,7 +31,6 @@ public class CheatAIPlayer extends AIPlayer {
     }
 
     private void NewLoop() {
-        System.out.println("Debug listened new loop");
         //提高门槛以提高胜率
         isEnableCheatAI = CalculateAdvantageRate() > 0.05;
     }

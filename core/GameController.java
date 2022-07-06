@@ -9,7 +9,7 @@ public class GameController {
     private final Dealer dealer;
     private final CardController cardController;
     private GameState gameState;
-    private GameControllerListener gameControllerListener = new GameControllerListener();
+    private GameControllerListener gameControllerListener;
 
     public GameController() {
         player = new HumanPlayer();
@@ -23,14 +23,24 @@ public class GameController {
     public GameController(int deckAmount, boolean enableWhiteCard, Player playerAI) {
         player = playerAI;
         dealer = new Dealer();
-        cardController = new CardController(deckAmount, enableWhiteCard);
+        //决策使用哪种CardController
+        if (playerAI instanceof CheatAIPlayer) {
+            cardController = new CheatAICardController(deckAmount, enableWhiteCard);
+        } else {
+            cardController = new CardController(deckAmount, enableWhiteCard);
+        }
         //设置钩子
         cardController.SetListener(player.GetCardControllerListener());
         gameControllerListener = player.GetGameControllerListener();
+
     }
 
     public void SetListener(@NotNull GameControllerListener gameControllerListener) {
         this.gameControllerListener = gameControllerListener;
+    }
+
+    public @NotNull GameControllerListener GetListener() {
+        return gameControllerListener;
     }
 
     private void ShowCards() {
