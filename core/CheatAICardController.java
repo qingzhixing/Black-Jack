@@ -25,7 +25,8 @@ public class CheatAICardController extends CardController {
             send = cards.get(randomIndex);
 
             //普通AI模式下大概率发小牌
-            while (!checker.IsEnableCheatAI() && send.GetPoint().intValue >= 10 && (new Random().nextInt(100) <= 80)) {
+            while (!checker.IsEnableCheatAI() && send.GetPoint().intValue >= 10 &&
+                    (new Random().nextInt(100) <= 80)) {
                 randomIndex = new Random().nextInt(cards.size());
                 send = cards.get(randomIndex);
             }
